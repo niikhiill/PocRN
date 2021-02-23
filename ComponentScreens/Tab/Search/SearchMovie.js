@@ -3,7 +3,6 @@ import axios from 'axios';
 import {
   View,
   Text,
-  StyleSheet,
   TextInput,
   ScrollView,
   Image,
@@ -11,6 +10,7 @@ import {
   ImageBackground,
 } from 'react-native';
 import bgCover from '../../../assets/bgimage.png';
+import styles from './Styles';
 
 export default function SearchStack({navigation}) {
   const apiurl =
@@ -23,7 +23,6 @@ export default function SearchStack({navigation}) {
   const search = () => {
     axios(apiurl + '&query=' + state.text).then(({data}) => {
       let movies = data.results;
-      // console.log(movies);
       setState((prevState) => {
         return {prevState, movies: movies};
       });
@@ -85,48 +84,3 @@ export default function SearchStack({navigation}) {
     </ImageBackground>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-  },
-
-  searchBox: {
-    fontSize: 18,
-    fontWeight: '300',
-    width: '90%',
-    height: 58,
-    backgroundColor: '#fff',
-    padding: 20,
-    marginBottom: 40,
-    borderRadius: 50,
-    marginTop: 60,
-  },
-  results: {
-    flex: 1,
-  },
-  result: {
-    flex: 1,
-    width: '100%',
-    marginBottom: 10,
-    flexDirection: 'row',
-    borderColor: '#fff',
-    borderBottomWidth: 1,
-  },
-  heading: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: '700',
-    padding: 10,
-    width: '75%',
-  },
-  datestyle: {
-    color: '#fff',
-    fontSize: 12,
-    fontWeight: '700',
-    marginLeft: 10,
-    width: '75%',
-  },
-});

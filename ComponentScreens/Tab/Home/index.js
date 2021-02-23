@@ -5,6 +5,7 @@ import HomeMovies from './HomeMovies';
 import Details from '../Details';
 import Upcoming from './UpcomingMovies';
 import Trending from './TrendingMovies';
+import Icons from 'react-native-vector-icons/Ionicons';
 
 const Stack = createStackNavigator();
 
@@ -24,9 +25,7 @@ export default function HomeStack({route, navigation}) {
         options={{
           headerLeft: () => (
             <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-              <Text style={{color: '#fff', fontSize: 20, marginLeft: 10}}>
-                I=I
-              </Text>
+              <Icons name="reorder-three" color="#fff" size={35} />
             </TouchableOpacity>
           ),
           headerTitle: 'Home',

@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 import {
   View,
   Text,
-  StyleSheet,
   TextInput,
   TouchableOpacity,
   ImageBackground,
   KeyboardAvoidingView,
 } from 'react-native';
 import bgCover from '../assets/bgimage.png';
+import styles from './StylesLogin';
 
 export default class Login extends Component {
   constructor(props) {
@@ -22,12 +22,12 @@ export default class Login extends Component {
   isValidFields = () => {
     const {mail, password} = this.state;
 
-    const mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    mailformat = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
     if (!mail.match(mailformat)) {
       alert('Please provide valid email');
       return false;
-    } else if (password == '') {
+    } else if (password === '') {
       alert('Please provide valid password');
       return false;
     } else if (password.length < 8) {
@@ -43,11 +43,11 @@ export default class Login extends Component {
     const {mail, password} = this.state;
     return (
       <ImageBackground source={bgCover} style={{height: '100%', width: '100%'}}>
-        <KeyboardAvoidingView behavior="padding" style={styles.ViewStyle}>
-          <Text style={styles.TextStyle}>MovieApp</Text>
+        <KeyboardAvoidingView behavior="padding" style={styles.viewStyle}>
+          <Text style={styles.title}>MovieApp</Text>
 
           <TextInput
-            style={styles.TextInputStyle1}
+            style={styles.emailField}
             placeholder="Login"
             placeholderTextColor={'rgba(255,255,255,0.3)'}
             onChangeText={(value) => this.setState({mail: value})}
@@ -61,7 +61,7 @@ export default class Login extends Component {
           />
 
           <TextInput
-            style={styles.TextInputStyle2}
+            style={styles.passwordField}
             placeholder="Password"
             placeholderTextColor={'rgba(255,255,255,0.3)'}
             onChangeText={(value) => this.setState({password: value})}
@@ -73,7 +73,7 @@ export default class Login extends Component {
           />
 
           <TouchableOpacity
-            style={styles.ButtonStyle}
+            style={styles.signInButton}
             onPress={() =>
               this.isValidFields()
                 ? this.props.navigation.navigate('Drawer', {
@@ -107,58 +107,3 @@ export default class Login extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  ViewStyle: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  TextStyle: {
-    fontSize: 30,
-    color: 'white',
-    fontWeight: 'bold',
-  },
-
-  TextInputStyle1: {
-    height: 58,
-    width: '85%',
-    backgroundColor: 'rgba(0,0,0,0.2)',
-    color: 'rgba(255,255,255,0.7)',
-    marginTop: 25,
-    fontSize: 20,
-    padding: 15,
-    justifyContent: 'center',
-    borderRadius: 7,
-  },
-
-  TextInputStyle2: {
-    height: 58,
-    width: '85%',
-    marginTop: 10,
-    backgroundColor: 'rgba(0,0,0,0.2)',
-    color: 'rgba(255,255,255,0.7)',
-    fontSize: 20,
-    padding: 15,
-    justifyContent: 'center',
-    borderRadius: 7,
-  },
-
-  ButtonStyle: {
-    height: 50,
-    width: '85%',
-    backgroundColor: '#cc6699',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 20,
-    borderRadius: 10,
-  },
-
-  container: {
-    marginTop: 20,
-    flexDirection: 'row',
-    width: '95%',
-    justifyContent: 'space-between',
-  },
-});

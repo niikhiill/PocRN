@@ -10,6 +10,7 @@ import {
   ScrollView,
 } from 'react-native';
 import bgCover from '../../../assets/bgimage.png';
+import Icons from 'react-native-vector-icons/SimpleLineIcons';
 
 export default class Home extends Component {
   constructor(props) {
@@ -22,7 +23,7 @@ export default class Home extends Component {
 
   componentDidMount() {
     this.fetchTrendingMovies();
-    this.fetchUpcomingingMovies();
+    this.fetchUpcomingMovies();
   }
 
   fetchTrendingMovies() {
@@ -38,7 +39,7 @@ export default class Home extends Component {
       });
   }
 
-  fetchUpcomingingMovies() {
+  fetchUpcomingMovies() {
     fetch(
       'https://api.themoviedb.org/3/movie/upcoming?api_key=51c5d477ec9bd7b3e52386828e267f99&region=US',
     )
@@ -60,7 +61,12 @@ export default class Home extends Component {
           showsVerticalScrollIndicator={false}>
           <View style={{flex: 1}}>
             <View style={styles.ViewStyle}>
-              <Text style={{color: 'white', fontSize: 25}}>Trending Now</Text>
+              <View style={{flexDirection: 'row'}}>
+                <Text style={{color: 'white', fontSize: 25, marginRight: 7}}>
+                  Trending Now
+                </Text>
+                <Icons name="fire" color="#fff" size={25} />
+              </View>
               <TouchableOpacity
                 onPress={() => this.props.navigation.navigate('Trending')}>
                 <Text style={{color: '#193366', fontSize: 18, marginEnd: 15}}>
@@ -122,7 +128,7 @@ export default class Home extends Component {
               showsHorizontalScrollIndicator={false}></FlatList>
           </View>
           {/* New view for upcoming movies */}
-          <View style={{flex: 1, paddingTop: 35}}>
+          <View style={{flex: 1, paddingTop: 25}}>
             <View
               style={{
                 flexDirection: 'row',
@@ -130,7 +136,12 @@ export default class Home extends Component {
                 paddingBottom: 18,
                 alignItems: 'center',
               }}>
-              <Text style={{color: 'white', fontSize: 25}}>Upcoming</Text>
+              <View style={{flexDirection: 'row'}}>
+                <Text style={{color: 'white', fontSize: 25, marginRight: 7}}>
+                  Upcoming
+                </Text>
+                <Icons name="hourglass" color="#fff" size={25} />
+              </View>
 
               <TouchableOpacity>
                 <Text

@@ -3,6 +3,7 @@ import {TouchableOpacity, Text} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import SearchMovie from './SearchMovie';
 import Details from '../Details';
+import Icons from 'react-native-vector-icons/Ionicons';
 
 const Stack = createStackNavigator();
 
@@ -15,9 +16,7 @@ export default function searchIndex({navigation}) {
         options={{
           headerLeft: () => (
             <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-              <Text style={{color: '#fff', fontSize: 20, marginLeft: 10}}>
-                I=I
-              </Text>
+              <Icons name="reorder-three" color="#fff" size={35} />
             </TouchableOpacity>
           ),
           headerTitle: 'Search',
@@ -25,7 +24,14 @@ export default function searchIndex({navigation}) {
           headerTintColor: '#fff',
           headerStyle: {backgroundColor: '#223343'},
         }}></Stack.Screen>
-      <Stack.Screen name="Details" component={Details}></Stack.Screen>
+      <Stack.Screen
+        name="Details"
+        component={Details}
+        options={{
+          headerTitleAlign: 'center',
+          headerTintColor: '#fff',
+          headerStyle: {backgroundColor: '#223343'},
+        }}></Stack.Screen>
     </Stack.Navigator>
   );
 }

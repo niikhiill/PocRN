@@ -7,7 +7,6 @@ import {
   FlatList,
   TouchableOpacity,
   ImageBackground,
-  ScrollView,
 } from 'react-native';
 import bgCover from '../../../assets/bgimage.png';
 

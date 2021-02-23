@@ -1,13 +1,7 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  ScrollView,
-  ImageBackground,
-} from 'react-native';
+import {View, Text, Image, ScrollView, ImageBackground} from 'react-native';
 import bgCover from '../../assets/bgimage.png';
+import styles from './StylesDetail';
 
 export default function Details({route}) {
   const {title, overview, poster_path, date, popularity, vote} = route.params;
@@ -18,14 +12,7 @@ export default function Details({route}) {
         <View style={{marginTop: 20}}>
           <Text style={styles.titleStyle}>{title}</Text>
           <View style={{flexDirection: 'row'}}>
-            <View
-              style={{
-                shadowOpacity: 200,
-                shadowColor: 'black',
-                height: 400,
-                width: 200,
-                margin: 10,
-              }}>
+            <View style={styles.container}>
               <Image
                 style={styles.imageStyle}
                 source={{
@@ -55,43 +42,3 @@ export default function Details({route}) {
     </ImageBackground>
   );
 }
-
-const styles = StyleSheet.create({
-  viewStyle: {
-    flex: 1,
-    height: '100%',
-    width: '100%',
-  },
-  imageStyle: {
-    height: '100%',
-    width: '100%',
-    resizeMode: 'contain',
-  },
-  titleStyle: {
-    fontSize: 30,
-    color: '#fff',
-    fontWeight: 'bold',
-    shadowColor: 'black',
-    shadowOpacity: 300,
-    alignSelf: 'center',
-  },
-  overview: {
-    fontSize: 25,
-    color: '#000080',
-    fontWeight: '500',
-  },
-  score: {
-    marginTop: 30,
-    fontSize: 17,
-    fontWeight: '600',
-  },
-  popularity: {
-    marginTop: 30,
-    fontSize: 17,
-    fontWeight: '600',
-  },
-  releaseDate: {
-    fontSize: 17,
-    fontWeight: '600',
-  },
-});
