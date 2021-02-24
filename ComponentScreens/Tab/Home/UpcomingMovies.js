@@ -10,6 +10,7 @@ import {
   ScrollView,
 } from 'react-native';
 import bgCover from '../../../assets/bgimage.png';
+import {fetchUpcomingMovies} from './fetchMovies';
 
 export default class Upcoming extends Component {
   constructor(props) {
@@ -17,23 +18,11 @@ export default class Upcoming extends Component {
     this.state = {
       moviesUpcoming: [],
     };
+    this.fetchUpcomingMovies = fetchUpcomingMovies.bind(this);
   }
 
   componentDidMount() {
-    this.fetchUpcomingingMovies();
-  }
-
-  fetchUpcomingingMovies() {
-    fetch(
-      'https://api.themoviedb.org/3/movie/upcoming?api_key=51c5d477ec9bd7b3e52386828e267f99&region=US',
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({moviesUpcoming: responseJson});
-      })
-      .catch((error) => {
-        console.log('Data fetching failed');
-      });
+    this.fetchUpcomingMovies();
   }
 
   render() {

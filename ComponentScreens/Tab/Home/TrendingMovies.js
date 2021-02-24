@@ -9,6 +9,7 @@ import {
   ImageBackground,
 } from 'react-native';
 import bgCover from '../../../assets/bgimage.png';
+import {fetchTrendingMovies} from './fetchMovies';
 
 export default class Trending extends Component {
   constructor(props) {
@@ -16,23 +17,11 @@ export default class Trending extends Component {
     this.state = {
       moviesTrending: [],
     };
+    this.fetchTrendingMovies = fetchTrendingMovies.bind(this);
   }
 
   componentDidMount() {
     this.fetchTrendingMovies();
-  }
-
-  fetchTrendingMovies() {
-    fetch(
-      'https://api.themoviedb.org/3/trending/movie/day?api_key=51c5d477ec9bd7b3e52386828e267f99',
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({moviesTrending: responseJson});
-      })
-      .catch((error) => {
-        console.log('Data fetching failed');
-      });
   }
 
   render() {
@@ -40,30 +29,17 @@ export default class Trending extends Component {
     return (
       <ImageBackground source={bgCover} style={{height: '100%', width: '100%'}}>
         <View style={{flex: 1, alignItems: 'center'}}>
-          <Text
-            style={{
-              color: 'white',
-              fontSize: 25,
-              padding: 20,
-            }}>
-            Movies Trending Now
-          </Text>
+          <Text style={styles.title}>Movies Trending Now</Text>
         </View>
 
-        <View style={{flex: 8, alignItems: 'center', justifyContent: 'center'}}>
+        <View style={styles.viewStyle}>
           <View style={{width: '95%'}}>
             <FlatList
               showsVerticalScrollIndicator={false}
               numColumns="2"
               data={moviesTrending.results}
               renderItem={({item}) => (
-                <View
-                  style={{
-                    marginHorizontal: 10,
-                    marginBottom: 70,
-                    height: 280,
-                    width: '45%',
-                  }}>
+                <View style={styles.container}>
                   <TouchableOpacity
                     onPress={() =>
                       this.props.navigation.navigate('Details', {
@@ -77,12 +53,7 @@ export default class Trending extends Component {
                       })
                     }>
                     <Image
-                      style={{
-                        height: '100%',
-                        width: '100%',
-                        borderRadius: 17,
-                        resizeMode: 'contain',
-                      }}
+                      style={styles.posterStyle}
                       source={{
                         uri:
                           'https://image.tmdb.org/t/p/original/' +
@@ -124,8 +95,26 @@ export default class Trending extends Component {
 }
 
 const styles = StyleSheet.create({
+  viewStyle: {
+    flex: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   container: {
-    paddingLeft: 10,
-    paddingBottom: 100,
+    marginHorizontal: 10,
+    marginBottom: 70,
+    height: 280,
+    width: '45%',
+  },
+  posterStyle: {
+    height: '100%',
+    width: '100%',
+    borderRadius: 17,
+    resizeMode: 'contain',
+  },
+  title: {
+    color: 'white',
+    fontSize: 25,
+    padding: 20,
   },
 });

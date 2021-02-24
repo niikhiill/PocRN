@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import bgCover from '../../../assets/bgimage.png';
 import Icons from 'react-native-vector-icons/SimpleLineIcons';
+import {fetchTrendingMovies, fetchUpcomingMovies} from './fetchMovies';
 
 export default class Home extends Component {
   constructor(props) {
@@ -19,37 +20,13 @@ export default class Home extends Component {
       moviesTrending: [],
       moviesUpcoming: [],
     };
+    this.fetchTrendingMovies = fetchTrendingMovies.bind(this);
+    this.fetchUpcomingMovies = fetchUpcomingMovies.bind(this);
   }
 
   componentDidMount() {
     this.fetchTrendingMovies();
     this.fetchUpcomingMovies();
-  }
-
-  fetchTrendingMovies() {
-    fetch(
-      'https://api.themoviedb.org/3/trending/movie/day?api_key=51c5d477ec9bd7b3e52386828e267f99',
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({moviesTrending: responseJson});
-      })
-      .catch((error) => {
-        console.log('Data fetching failed');
-      });
-  }
-
-  fetchUpcomingMovies() {
-    fetch(
-      'https://api.themoviedb.org/3/movie/upcoming?api_key=51c5d477ec9bd7b3e52386828e267f99&region=US',
-    )
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({moviesUpcoming: responseJson});
-      })
-      .catch((error) => {
-        console.log('Data fetching failed');
-      });
   }
 
   render() {
@@ -68,7 +45,9 @@ export default class Home extends Component {
                 <Icons name="fire" color="#fff" size={25} />
               </View>
               <TouchableOpacity
-                onPress={() => this.props.navigation.navigate('Trending')}>
+                onPress={() =>
+                  this.props.navigation.navigate('Trending', {name: 'Trending'})
+                }>
                 <Text style={{color: '#193366', fontSize: 18, marginEnd: 15}}>
                   Show All{'>'}
                 </Text>
