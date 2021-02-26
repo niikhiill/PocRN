@@ -13,6 +13,49 @@ import bgCover from '../../../assets/bgimage.png';
 import Icons from 'react-native-vector-icons/SimpleLineIcons';
 import {fetchTrendingMovies, fetchUpcomingMovies} from './fetchMovies';
 
+function renderMovie({item}) {
+  return (
+    <View style={{margin: 10, height: 320, alignItems: 'center'}}>
+      <TouchableOpacity
+        onPress={() =>
+          this.props.navigation.navigate('Details', {
+            title: item.title,
+            overview: item.overview,
+            poster_path: item.poster_path,
+            date: item.release_date,
+            popularity: item.popularity,
+            genre: item.genre_ids,
+            vote: item.vote_average,
+          })
+        }>
+        <Image
+          style={{height: 250, width: 180, borderRadius: 17}}
+          source={{
+            uri: 'https://image.tmdb.org/t/p/original/' + item.poster_path,
+          }}
+        />
+      </TouchableOpacity>
+      <View
+        style={{
+          width: 175,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        <Text style={{color: 'white', fontSize: 17}}>{item.title}</Text>
+      </View>
+      <View
+        style={{
+          width: 175,
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginTop: 7,
+        }}>
+        <Text style={{color: 'white', fontSize: 12}}>{item.release_date}</Text>
+      </View>
+    </View>
+  );
+}
+
 export default class Home extends Component {
   constructor(props) {
     super(props);
@@ -22,6 +65,7 @@ export default class Home extends Component {
     };
     this.fetchTrendingMovies = fetchTrendingMovies.bind(this);
     this.fetchUpcomingMovies = fetchUpcomingMovies.bind(this);
+    this.renderMovie = renderMovie.bind(this);
   }
 
   componentDidMount() {
@@ -57,52 +101,7 @@ export default class Home extends Component {
             <FlatList
               horizontal={true}
               data={moviesTrending.results}
-              renderItem={({item}) => (
-                <View style={{margin: 10, height: 320, alignItems: 'center'}}>
-                  <TouchableOpacity
-                    onPress={() =>
-                      this.props.navigation.navigate('Details', {
-                        title: item.title,
-                        overview: item.overview,
-                        poster_path: item.poster_path,
-                        date: item.release_date,
-                        popularity: item.popularity,
-                        genre: item.genre_ids,
-                        vote: item.vote_average,
-                      })
-                    }>
-                    <Image
-                      style={{height: 250, width: 180, borderRadius: 17}}
-                      source={{
-                        uri:
-                          'https://image.tmdb.org/t/p/original/' +
-                          item.poster_path,
-                      }}
-                    />
-                  </TouchableOpacity>
-                  <View
-                    style={{
-                      width: 175,
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}>
-                    <Text style={{color: 'white', fontSize: 17}}>
-                      {item.title}
-                    </Text>
-                  </View>
-                  <View
-                    style={{
-                      width: 175,
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      marginTop: 7,
-                    }}>
-                    <Text style={{color: 'white', fontSize: 12}}>
-                      {item.release_date}
-                    </Text>
-                  </View>
-                </View>
-              )}
+              renderItem={this.renderMovie}
               keyExtractor={(item, key) => key.toString()}
               showsHorizontalScrollIndicator={false}></FlatList>
           </View>
@@ -134,52 +133,7 @@ export default class Home extends Component {
             <FlatList
               horizontal={true}
               data={moviesUpcoming.results}
-              renderItem={({item}) => (
-                <View style={{margin: 10, height: 320, alignItems: 'center'}}>
-                  <TouchableOpacity
-                    onPress={() =>
-                      this.props.navigation.navigate('Details', {
-                        title: item.title,
-                        overview: item.overview,
-                        poster_path: item.poster_path,
-                        date: item.release_date,
-                        popularity: item.popularity,
-                        genre: item.genre_ids,
-                        vote: item.vote_average,
-                      })
-                    }>
-                    <Image
-                      style={{height: 250, width: 180, borderRadius: 17}}
-                      source={{
-                        uri:
-                          'https://image.tmdb.org/t/p/original/' +
-                          item.poster_path,
-                      }}
-                    />
-                  </TouchableOpacity>
-                  <View
-                    style={{
-                      width: 175,
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}>
-                    <Text style={{color: 'white', fontSize: 17}}>
-                      {item.title}
-                    </Text>
-                  </View>
-                  <View
-                    style={{
-                      width: 175,
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      marginTop: 7,
-                    }}>
-                    <Text style={{color: 'white', fontSize: 12}}>
-                      {item.release_date}
-                    </Text>
-                  </View>
-                </View>
-              )}
+              renderItem={this.renderMovie}
               keyExtractor={(item, key) => key.toString()}
               showsHorizontalScrollIndicator={false}></FlatList>
           </View>

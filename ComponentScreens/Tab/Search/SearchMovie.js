@@ -12,7 +12,7 @@ import {
 import bgCover from '../../../assets/bgimage.png';
 import styles from './Styles';
 
-export default function SearchStack({navigation}) {
+export default function SearchMovie({navigation}) {
   const apiurl =
     'https://api.themoviedb.org/3/search/movie?api_key=51c5d477ec9bd7b3e52386828e267f99';
 
@@ -43,7 +43,9 @@ export default function SearchStack({navigation}) {
           onSubmitEditing={search}
           autoCorrect={false}
         />
+
         <ScrollView style={styles.results}>
+          {/* {state.movies.results ? ( */}
           {state.movies.map((movie) => (
             <TouchableOpacity
               key={movie.id}

@@ -35,6 +35,8 @@ export default class Login extends Component {
       return false;
     } else {
       alert('Logged In');
+      this.setState({mail: ''});
+      this.setState({password: ''});
       return true;
     }
   };
