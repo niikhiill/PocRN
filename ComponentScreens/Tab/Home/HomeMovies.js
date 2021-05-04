@@ -12,6 +12,8 @@ import {
 import bgCover from '../../../assets/bgimage.png';
 import Icons from 'react-native-vector-icons/SimpleLineIcons';
 import {fetchTrendingMovies, fetchUpcomingMovies} from './fetchMovies';
+import {connect} from 'react-redux';
+import {getMovies} from '../../../redux/actions/actions';
 
 function renderMovie({item}) {
   return (
@@ -56,7 +58,7 @@ function renderMovie({item}) {
   );
 }
 
-export default class Home extends Component {
+class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -68,13 +70,16 @@ export default class Home extends Component {
     this.renderMovie = renderMovie.bind(this);
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     this.fetchTrendingMovies();
     this.fetchUpcomingMovies();
-  }
+    this.props.getMovies();
+  };
 
   render() {
     const {moviesTrending, moviesUpcoming} = this.state;
+
+    const {myUpcomingMovies} = this.props;
     return (
       <ImageBackground source={bgCover} style={{height: '100%', width: '100%'}}>
         <ScrollView
@@ -143,6 +148,18 @@ export default class Home extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    myUpcomingMovies: state.upcomingMovies,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getMovies,
+  };
+};
+
 const styles = StyleSheet.create({
   container: {
     paddingLeft: 10,
@@ -156,3 +173,5 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 });
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

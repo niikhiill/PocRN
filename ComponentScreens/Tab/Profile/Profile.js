@@ -8,10 +8,11 @@ import {
 } from 'react-native';
 import bgCover from '../../../assets/bgimage.png';
 import {useFocusEffect} from '@react-navigation/native';
+import {connect} from 'react-redux';
 import styles from './Styles';
 
-export default function Profile({route, navigation}) {
-  const {mail} = route.params;
+function Profile({route, navigation, mail, movie}) {
+  // const {mail} = route.params;
 
   //Used to prevent android back button
   useFocusEffect(
@@ -34,7 +35,7 @@ export default function Profile({route, navigation}) {
   return (
     <ImageBackground source={bgCover} style={{height: '100%', width: '100%'}}>
       <View style={styles.viewStyle}>
-        <Text style={styles.Title}>Welcome {mail} !</Text>
+        <Text style={styles.Title}>Welcome! {mail}</Text>
         <TouchableOpacity
           style={{marginTop: 15}}
           onPress={() => navigation.navigate('Login')}>
@@ -44,3 +45,11 @@ export default function Profile({route, navigation}) {
     </ImageBackground>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    mail: state.userName,
+  };
+};
+
+export default connect(mapStateToProps)(Profile);
