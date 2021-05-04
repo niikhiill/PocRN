@@ -8,7 +8,7 @@ import Search from './Search';
 const Tab = createBottomTabNavigator();
 
 export default function index({route}) {
-  const {mail} = route.params;
+  // const {mail} = route.params;
   return (
     <Tab.Navigator
       initialRouteName="Profile"
@@ -64,7 +64,7 @@ export default function index({route}) {
       <Tab.Screen
         name="Profile"
         component={Profile}
-        initialParams={{mail: mail}}
+        // initialParams={{mail: mail}}
       />
     </Tab.Navigator>
   );

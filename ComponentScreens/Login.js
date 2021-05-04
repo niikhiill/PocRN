@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import {
   View,
   Text,
@@ -9,8 +10,9 @@ import {
 } from 'react-native';
 import bgCover from '../assets/bgimage.png';
 import styles from './StylesLogin';
+import {loginUser} from '../redux/actions/actions';
 
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,6 +20,11 @@ export default class Login extends Component {
       password: '',
     };
   }
+
+  loginButtonAction = () => {
+    this.props.getUserName(this.state.mail);
+    this.props.navigation.navigate('Drawer');
+  };
 
   isValidFields = () => {
     const {mail, password} = this.state;
@@ -77,14 +84,7 @@ export default class Login extends Component {
           <TouchableOpacity
             style={styles.signInButton}
             onPress={() =>
-              this.isValidFields()
-                ? this.props.navigation.navigate('Drawer', {
-                    screen: 'Tab',
-                    params: {
-                      mail: mail,
-                    },
-                  })
-                : null
+              this.isValidFields() ? this.loginButtonAction() : null
             }>
             <Text style={{color: 'white', fontSize: 20}}>Sign In</Text>
           </TouchableOpacity>
@@ -109,3 +109,12 @@ export default class Login extends Component {
     );
   }
 }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getUserName: (mail) => {
+      dispatch(loginUser(mail));
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Login);
